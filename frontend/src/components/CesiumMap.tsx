@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   Cartesian2,
   Cartesian3,
@@ -7,7 +7,6 @@ import {
   ColorMaterialProperty,
   ConstantProperty,
   GeoJsonDataSource,
-  HeightReference,
   Ion,
   Math as CesiumMath,
   ScreenSpaceEventHandler,
@@ -25,7 +24,8 @@ type CesiumMapProps = {
   route: RouteResponse | null;
   startNodeId: string | null;
   endNodeId: string | null;
-  onPickNode: (nodeId: string) => void;
+  onSelectStart: (nodeId: string) => void;
+  onSelectEnd: (nodeId: string) => void;
 };
 
 function getStringProp(entity: any, name: string): string | undefined {
@@ -66,19 +66,18 @@ export function CesiumMap({
   route,
   startNodeId,
   endNodeId,
-  onPickNode,
+  onSelectStart,
+  onSelectEnd,
 }: CesiumMapProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const viewerRef = useRef<Viewer | null>(null);
   const clickHandlerRef = useRef<ScreenSpaceEventHandler | null>(null);
   const dynamicEntityIdsRef = useRef<string[]>([]);
-  const pickNodeRef = useRef(onPickNode);
 
-  useEffect(() => {
-    pickNodeRef.current = onPickNode;
-  }, [onPickNode]);
+  const [selectedNode, setSelectedNode] = useState<GraphNode | null>(null);
+  const [popupPosition, setPopupPosition] = useState<{ x: number; y: number } | null>(null);
 
-  // viewer один раз
+  // Viewer создаётся один раз
   useEffect(() => {
     if (!containerRef.current) return;
     if (viewerRef.current) return;
@@ -102,7 +101,7 @@ export function CesiumMap({
     });
 
     viewer.camera.setView({
-      destination: Cartesian3.fromDegrees(37.6053, 55.7452, 900),
+      destination: Cartesian3.fromDegrees(37.6, 55.74, 900),
       orientation: {
         heading: CesiumMath.toRadians(25),
         pitch: CesiumMath.toRadians(-45),
@@ -124,7 +123,7 @@ export function CesiumMap({
     };
   }, []);
 
-  // статические слои один раз
+  // Статические слои — один раз
   useEffect(() => {
     const viewer = viewerRef.current;
     if (!viewer) return;
@@ -221,11 +220,24 @@ export function CesiumMap({
       const handler = new ScreenSpaceEventHandler(viewer.scene.canvas);
 
       const pickNearestNode = (position: Cartesian2): GraphNode | null => {
-        const ray = viewer.camera.getPickRay(position);
-        if (!ray) return null;
+        let cartesian: Cartesian3 | undefined;
 
-        const cartesian = viewer.scene.globe.pick(ray, viewer.scene);
-        if (!defined(cartesian)) return null;
+        if (viewer.scene.pickPositionSupported) {
+          const picked = viewer.scene.pickPosition(position);
+          if (defined(picked)) {
+            cartesian = picked;
+          }
+        }
+
+        if (!cartesian) {
+          const ray = viewer.camera.getPickRay(position);
+          if (!ray) return null;
+
+          const globePicked = viewer.scene.globe.pick(ray, viewer.scene);
+          if (!defined(globePicked)) return null;
+
+          cartesian = globePicked;
+        }
 
         const cartographic = Cartographic.fromCartesian(cartesian);
         const lon = CesiumMath.toDegrees(cartographic.longitude);
@@ -234,30 +246,20 @@ export function CesiumMap({
         return findNearestNode(lat, lon, nodes);
       };
 
-      handler.setInputAction((event: { endPosition: Cartesian2 }) => {
-        const nearest = pickNearestNode(event.endPosition);
-
-        viewer.entities.removeById('hover-preview');
-
-        if (!nearest) return;
-
-        viewer.entities.add({
-          id: 'hover-preview',
-          position: Cartesian3.fromDegrees(nearest.lon, nearest.lat),
-          point: {
-            pixelSize: 12,
-            color: Color.ORANGE,
-            outlineColor: Color.BLACK,
-            outlineWidth: 2,
-            heightReference: HeightReference.CLAMP_TO_GROUND,
-          },
-        });
-      }, ScreenSpaceEventType.MOUSE_MOVE);
-
       handler.setInputAction((event: { position: Cartesian2 }) => {
         const nearest = pickNearestNode(event.position);
-        if (!nearest) return;
-        pickNodeRef.current(nearest.id);
+
+        if (!nearest) {
+          setSelectedNode(null);
+          setPopupPosition(null);
+          return;
+        }
+
+        setSelectedNode(nearest);
+        setPopupPosition({
+          x: event.position.x,
+          y: event.position.y,
+        });
       }, ScreenSpaceEventType.LEFT_CLICK);
 
       clickHandlerRef.current = handler;
@@ -268,7 +270,7 @@ export function CesiumMap({
     };
   }, [nodes]);
 
-  // динамика: только старт/финиш/маршрут
+  // Динамика: только маршрут
   useEffect(() => {
     const viewer = viewerRef.current;
     if (!viewer) return;
@@ -277,44 +279,6 @@ export function CesiumMap({
       viewer.entities.removeById(id);
     }
     dynamicEntityIdsRef.current = [];
-
-    if (startNodeId) {
-      const startNode = nodes.find((n) => n.id === startNodeId);
-      if (startNode) {
-        const id = `start-${startNode.id}`;
-        viewer.entities.add({
-          id,
-          position: Cartesian3.fromDegrees(startNode.lon, startNode.lat),
-          point: {
-            pixelSize: 16,
-            color: Color.LIMEGREEN,
-            outlineColor: Color.BLACK,
-            outlineWidth: 2,
-            heightReference: HeightReference.CLAMP_TO_GROUND,
-          },
-        });
-        dynamicEntityIdsRef.current.push(id);
-      }
-    }
-
-    if (endNodeId) {
-      const endNode = nodes.find((n) => n.id === endNodeId);
-      if (endNode) {
-        const id = `end-${endNode.id}`;
-        viewer.entities.add({
-          id,
-          position: Cartesian3.fromDegrees(endNode.lon, endNode.lat),
-          point: {
-            pixelSize: 16,
-            color: Color.RED,
-            outlineColor: Color.BLACK,
-            outlineWidth: 2,
-            heightReference: HeightReference.CLAMP_TO_GROUND,
-          },
-        });
-        dynamicEntityIdsRef.current.push(id);
-      }
-    }
 
     if (route) {
       for (const edge of route.edges) {
@@ -334,7 +298,77 @@ export function CesiumMap({
         dynamicEntityIdsRef.current.push(id);
       }
     }
-  }, [nodes, route, startNodeId, endNodeId]);
+  }, [route]);
 
-  return <div ref={containerRef} style={{ width: '100%', height: '100vh' }} />;
+  return (
+    <>
+      <div ref={containerRef} style={{ width: '100%', height: '100vh' }} />
+
+      {selectedNode && popupPosition && (
+        <div
+          style={{
+            position: 'absolute',
+            left: popupPosition.x + 12,
+            top: popupPosition.y + 12,
+            zIndex: 30,
+            background: 'white',
+            borderRadius: 10,
+            padding: 12,
+            minWidth: 220,
+            boxShadow: '0 4px 18px rgba(0,0,0,0.2)',
+            fontFamily: 'sans-serif',
+            fontSize: 13,
+          }}
+        >
+          <div style={{ fontWeight: 600, marginBottom: 8 }}>Узел графа</div>
+          <div><b>ID:</b> {selectedNode.id}</div>
+          <div><b>Тип:</b> {selectedNode.type}</div>
+          <div><b>Широта:</b> {selectedNode.lat.toFixed(6)}</div>
+          <div><b>Долгота:</b> {selectedNode.lon.toFixed(6)}</div>
+          <div><b>Z:</b> {selectedNode.z}</div>
+
+          <div style={{ display: 'flex', gap: 8, marginTop: 10 }}>
+            <button
+              style={{ flex: 1 }}
+              onClick={() => {
+                onSelectStart(selectedNode.id);
+                setSelectedNode(null);
+                setPopupPosition(null);
+              }}
+            >
+              Выбрать как старт
+            </button>
+
+            <button
+              style={{ flex: 1 }}
+              onClick={() => {
+                onSelectEnd(selectedNode.id);
+                setSelectedNode(null);
+                setPopupPosition(null);
+              }}
+            >
+              Выбрать как финиш
+            </button>
+          </div>
+
+          <button
+            style={{ marginTop: 8, width: '100%' }}
+            onClick={() => {
+              setSelectedNode(null);
+              setPopupPosition(null);
+            }}
+          >
+            Закрыть
+          </button>
+
+          {(startNodeId === selectedNode.id || endNodeId === selectedNode.id) && (
+            <div style={{ marginTop: 8, color: '#555' }}>
+              {startNodeId === selectedNode.id && <div>Текущий старт</div>}
+              {endNodeId === selectedNode.id && <div>Текущий финиш</div>}
+            </div>
+          )}
+        </div>
+      )}
+    </>
+  );
 }

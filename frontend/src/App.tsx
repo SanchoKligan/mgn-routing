@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { buildRoute, fetchGraph } from './api/client';
 import { CesiumMap } from './components/CesiumMap';
 import type {
@@ -23,40 +23,30 @@ export default function App() {
       .then((data) => {
         setNodes(data.nodes);
         setEdges(data.edges);
-        setStatus('Граф загружен. Кликни по карте, чтобы выбрать старт и финиш.');
+        setStatus('Граф загружен. Кликни по карте и выбери узел как старт или финиш.');
       })
       .catch((err) => {
         setStatus(err.message);
       });
   }, []);
 
-  const handleMapNodePick = useCallback((nodeId: string) => {
+  const handleSelectStart = (nodeId: string) => {
+    setStartNodeId(nodeId);
     setRoute(null);
+    setStatus(`Старт выбран: ${nodeId}`);
+  };
 
-    if (!startNodeId) {
-      setStartNodeId(nodeId);
-      setStatus(`Старт выбран: ${nodeId}. Теперь выбери финиш.`);
-      return;
-    }
-
-    if (!endNodeId && nodeId !== startNodeId) {
-      setEndNodeId(nodeId);
-      setStatus(`Финиш выбран: ${nodeId}. Теперь можно построить маршрут.`);
-      return;
-    }
-
-    if (nodeId !== startNodeId) {
-      setStartNodeId(nodeId);
-      setEndNodeId(null);
-      setStatus(`Новый старт: ${nodeId}. Теперь выбери новый финиш.`);
-    }
-  }, [startNodeId, endNodeId]);
+  const handleSelectEnd = (nodeId: string) => {
+    setEndNodeId(nodeId);
+    setRoute(null);
+    setStatus(`Финиш выбран: ${nodeId}`);
+  };
 
   const handleReset = () => {
     setStartNodeId(null);
     setEndNodeId(null);
     setRoute(null);
-    setStatus('Выбор сброшен. Кликни по карте, чтобы выбрать старт и финиш.');
+    setStatus('Выбор сброшен. Кликни по карте и выбери узел как старт или финиш.');
   };
 
   const handleBuildRoute = async () => {
@@ -83,7 +73,7 @@ export default function App() {
       <div
         style={{
           position: 'absolute',
-          zIndex: 10,
+          zIndex: 20,
           top: 16,
           left: 16,
           background: '#fff',
@@ -140,7 +130,8 @@ export default function App() {
         route={route}
         startNodeId={startNodeId}
         endNodeId={endNodeId}
-        onPickNode={handleMapNodePick}
+        onSelectStart={handleSelectStart}
+        onSelectEnd={handleSelectEnd}
       />
     </>
   );
