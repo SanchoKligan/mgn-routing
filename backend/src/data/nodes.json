@@ -1,6 +1,0 @@
-[
-  { "id": "n1", "lat": 55.75380, "lon": 37.62070, "z": 0, "type": "intersection", "attrs": {} },
-  { "id": "n2", "lat": 55.75395, "lon": 37.62105, "z": 1, "type": "ramp", "attrs": {} },
-  { "id": "n3", "lat": 55.75410, "lon": 37.62140, "z": 4, "type": "stairs", "attrs": {} },
-  { "id": "n4", "lat": 55.75425, "lon": 37.62175, "z": 4, "type": "entrance", "attrs": {} }
-]

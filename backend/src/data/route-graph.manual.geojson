@@ -1,0 +1,941 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          37.6039334,
+          55.7439609,
+          0
+        ]
+      },
+      "properties": {
+        "graphType": "node",
+        "id": "n1",
+        "nodeType": "intersection",
+        "z": 0,
+        "tactileSupport": false,
+        "soundSignal": false,
+        "elevator": false,
+        "trafficLight": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          37.6041467,
+          55.7441408,
+          0
+        ]
+      },
+      "properties": {
+        "graphType": "node",
+        "id": "n2",
+        "nodeType": "intersection",
+        "z": 0,
+        "tactileSupport": false,
+        "soundSignal": false,
+        "elevator": false,
+        "trafficLight": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          37.6042466,
+          55.7438698,
+          0
+        ]
+      },
+      "properties": {
+        "graphType": "node",
+        "id": "n3",
+        "nodeType": "intersection",
+        "z": 0,
+        "tactileSupport": false,
+        "soundSignal": false,
+        "elevator": false,
+        "trafficLight": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          37.6042916,
+          55.7439091,
+          0
+        ]
+      },
+      "properties": {
+        "graphType": "node",
+        "id": "n4",
+        "nodeType": "stairs",
+        "z": 0,
+        "tactileSupport": false,
+        "soundSignal": false,
+        "elevator": false,
+        "trafficLight": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          37.6043179,
+          55.7439318,
+          0
+        ]
+      },
+      "properties": {
+        "graphType": "node",
+        "id": "n5",
+        "nodeType": "stairs",
+        "z": 0,
+        "tactileSupport": false,
+        "soundSignal": false,
+        "elevator": false,
+        "trafficLight": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          37.6043482,
+          55.743958,
+          0
+        ]
+      },
+      "properties": {
+        "graphType": "node",
+        "id": "n6",
+        "nodeType": "stairs",
+        "z": 0,
+        "tactileSupport": false,
+        "soundSignal": false,
+        "elevator": false,
+        "trafficLight": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          37.604376,
+          55.743982,
+          0
+        ]
+      },
+      "properties": {
+        "graphType": "node",
+        "id": "n7",
+        "nodeType": "stairs",
+        "z": 0,
+        "tactileSupport": false,
+        "soundSignal": false,
+        "elevator": false,
+        "trafficLight": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          37.604397,
+          55.744,
+          0
+        ]
+      },
+      "properties": {
+        "graphType": "node",
+        "id": "n8",
+        "nodeType": "intersection",
+        "z": 0,
+        "tactileSupport": false,
+        "soundSignal": false,
+        "elevator": false,
+        "trafficLight": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          37.6045373,
+          55.7439852,
+          0
+        ]
+      },
+      "properties": {
+        "graphType": "node",
+        "id": "n9",
+        "nodeType": "stairs",
+        "z": 0,
+        "tactileSupport": false,
+        "soundSignal": false,
+        "elevator": false,
+        "trafficLight": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          37.6045982,
+          55.7440361,
+          0
+        ]
+      },
+      "properties": {
+        "graphType": "node",
+        "id": "n10",
+        "nodeType": "stairs",
+        "z": 0,
+        "tactileSupport": false,
+        "soundSignal": false,
+        "elevator": false,
+        "trafficLight": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          37.6046291,
+          55.7440619,
+          0
+        ]
+      },
+      "properties": {
+        "graphType": "node",
+        "id": "n11",
+        "nodeType": "stairs",
+        "z": 0,
+        "tactileSupport": false,
+        "soundSignal": false,
+        "elevator": false,
+        "trafficLight": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          37.6046669,
+          55.7440934,
+          0
+        ]
+      },
+      "properties": {
+        "graphType": "node",
+        "id": "n12",
+        "nodeType": "stairs",
+        "z": 0,
+        "tactileSupport": false,
+        "soundSignal": false,
+        "elevator": false,
+        "trafficLight": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          37.6047256,
+          55.7436882,
+          0
+        ]
+      },
+      "properties": {
+        "graphType": "node",
+        "id": "n13",
+        "nodeType": "intersection",
+        "z": 0,
+        "tactileSupport": false,
+        "soundSignal": false,
+        "elevator": false,
+        "trafficLight": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          37.6047485,
+          55.7441616,
+          0
+        ]
+      },
+      "properties": {
+        "graphType": "node",
+        "id": "n14",
+        "nodeType": "intersection",
+        "z": 0,
+        "tactileSupport": false,
+        "soundSignal": false,
+        "elevator": false,
+        "trafficLight": false
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.6047256,
+            55.7436882
+          ],
+          [
+            37.6044879,
+            55.7437767
+          ],
+          [
+            37.6042466,
+            55.7438698
+          ]
+        ]
+      },
+      "properties": {
+        "graphType": "edge",
+        "id": "e1",
+        "sourceOsmId": "way/373952791",
+        "from": "n13",
+        "to": "n3",
+        "bidirectional": true,
+        "lengthM": 36.1,
+        "slopePercent": 0.0,
+        "widthM": 1.8,
+        "curbHeightCm": 0,
+        "surface": "tile",
+        "hasRamp": false,
+        "hasStairs": false,
+        "closed": false,
+        "snow": 0,
+        "ice": 0,
+        "repair": 0,
+        "crowd": 0,
+        "highway": "footway",
+        "footway": null,
+        "incline": null,
+        "wheelchair": null,
+        "bridge": null,
+        "layer": null,
+        "surfaceRaw": "paving_stones"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.6042466,
+            55.7438698
+          ],
+          [
+            37.6039334,
+            55.7439609
+          ]
+        ]
+      },
+      "properties": {
+        "graphType": "edge",
+        "id": "e2",
+        "sourceOsmId": "way/373952791",
+        "from": "n3",
+        "to": "n1",
+        "bidirectional": true,
+        "lengthM": 22.1,
+        "slopePercent": 0.0,
+        "widthM": 1.8,
+        "curbHeightCm": 0,
+        "surface": "tile",
+        "hasRamp": false,
+        "hasStairs": false,
+        "closed": false,
+        "snow": 0,
+        "ice": 0,
+        "repair": 0,
+        "crowd": 0,
+        "highway": "footway",
+        "footway": null,
+        "incline": null,
+        "wheelchair": null,
+        "bridge": null,
+        "layer": null,
+        "surfaceRaw": "paving_stones"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.6042466,
+            55.7438698
+          ],
+          [
+            37.6042916,
+            55.7439091
+          ]
+        ]
+      },
+      "properties": {
+        "graphType": "edge",
+        "id": "e3",
+        "sourceOsmId": "way/373952776",
+        "from": "n3",
+        "to": "n4",
+        "bidirectional": true,
+        "lengthM": 5.2,
+        "slopePercent": 0.0,
+        "widthM": 1.8,
+        "curbHeightCm": 0,
+        "surface": "tile",
+        "hasRamp": false,
+        "hasStairs": false,
+        "closed": false,
+        "snow": 0,
+        "ice": 0,
+        "repair": 0,
+        "crowd": 0,
+        "highway": "footway",
+        "footway": null,
+        "incline": null,
+        "wheelchair": null,
+        "bridge": null,
+        "layer": null,
+        "surfaceRaw": "paving_stones"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.6042916,
+            55.7439091
+          ],
+          [
+            37.6043179,
+            55.7439318
+          ]
+        ]
+      },
+      "properties": {
+        "graphType": "edge",
+        "id": "e4",
+        "sourceOsmId": "way/144931377",
+        "from": "n4",
+        "to": "n5",
+        "bidirectional": true,
+        "lengthM": 3.0,
+        "slopePercent": 12.0,
+        "widthM": 1.2,
+        "curbHeightCm": 0,
+        "surface": "tile",
+        "hasRamp": false,
+        "hasStairs": true,
+        "closed": false,
+        "snow": 0,
+        "ice": 0,
+        "repair": 0,
+        "crowd": 0,
+        "highway": "steps",
+        "footway": null,
+        "incline": "up",
+        "wheelchair": null,
+        "bridge": null,
+        "layer": null,
+        "surfaceRaw": "granite"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.6043179,
+            55.7439318
+          ],
+          [
+            37.6043482,
+            55.743958
+          ]
+        ]
+      },
+      "properties": {
+        "graphType": "edge",
+        "id": "e5",
+        "sourceOsmId": "way/720260919",
+        "from": "n5",
+        "to": "n6",
+        "bidirectional": true,
+        "lengthM": 3.5,
+        "slopePercent": 0.0,
+        "widthM": 1.8,
+        "curbHeightCm": 0,
+        "surface": "tile",
+        "hasRamp": false,
+        "hasStairs": false,
+        "closed": false,
+        "snow": 0,
+        "ice": 0,
+        "repair": 0,
+        "crowd": 0,
+        "highway": "footway",
+        "footway": null,
+        "incline": null,
+        "wheelchair": null,
+        "bridge": null,
+        "layer": null,
+        "surfaceRaw": "granite"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.6043482,
+            55.743958
+          ],
+          [
+            37.604376,
+            55.743982
+          ]
+        ]
+      },
+      "properties": {
+        "graphType": "edge",
+        "id": "e6",
+        "sourceOsmId": "way/720260918",
+        "from": "n6",
+        "to": "n7",
+        "bidirectional": true,
+        "lengthM": 3.2,
+        "slopePercent": 12.0,
+        "widthM": 1.2,
+        "curbHeightCm": 0,
+        "surface": "tile",
+        "hasRamp": false,
+        "hasStairs": true,
+        "closed": false,
+        "snow": 0,
+        "ice": 0,
+        "repair": 0,
+        "crowd": 0,
+        "highway": "steps",
+        "footway": null,
+        "incline": "up",
+        "wheelchair": null,
+        "bridge": null,
+        "layer": null,
+        "surfaceRaw": "granite"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.6041467,
+            55.7441408
+          ],
+          [
+            37.6044375,
+            55.7440355
+          ],
+          [
+            37.604397,
+            55.744
+          ]
+        ]
+      },
+      "properties": {
+        "graphType": "edge",
+        "id": "e7",
+        "sourceOsmId": "way/720260903",
+        "from": "n2",
+        "to": "n8",
+        "bidirectional": true,
+        "lengthM": 26.3,
+        "slopePercent": 0.0,
+        "widthM": 1.8,
+        "curbHeightCm": 0,
+        "surface": "tile",
+        "hasRamp": false,
+        "hasStairs": false,
+        "closed": false,
+        "snow": 0,
+        "ice": 0,
+        "repair": 0,
+        "crowd": 0,
+        "highway": "footway",
+        "footway": null,
+        "incline": null,
+        "wheelchair": null,
+        "bridge": null,
+        "layer": null,
+        "surfaceRaw": "paving_stones"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.604397,
+            55.744
+          ],
+          [
+            37.604376,
+            55.743982
+          ]
+        ]
+      },
+      "properties": {
+        "graphType": "edge",
+        "id": "e8",
+        "sourceOsmId": "way/720260903",
+        "from": "n8",
+        "to": "n7",
+        "bidirectional": true,
+        "lengthM": 2.4,
+        "slopePercent": 0.0,
+        "widthM": 1.8,
+        "curbHeightCm": 0,
+        "surface": "tile",
+        "hasRamp": false,
+        "hasStairs": false,
+        "closed": false,
+        "snow": 0,
+        "ice": 0,
+        "repair": 0,
+        "crowd": 0,
+        "highway": "footway",
+        "footway": null,
+        "incline": null,
+        "wheelchair": null,
+        "bridge": null,
+        "layer": null,
+        "surfaceRaw": "paving_stones"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.604397,
+            55.744
+          ],
+          [
+            37.6042779,
+            55.7440421
+          ],
+          [
+            37.604254,
+            55.7440212
+          ],
+          [
+            37.6041771,
+            55.7440491
+          ],
+          [
+            37.6041467,
+            55.7441408
+          ]
+        ]
+      },
+      "properties": {
+        "graphType": "edge",
+        "id": "e9",
+        "sourceOsmId": "way/373952781",
+        "from": "n8",
+        "to": "n2",
+        "bidirectional": true,
+        "lengthM": 27.7,
+        "slopePercent": 0.0,
+        "widthM": 1.8,
+        "curbHeightCm": 0,
+        "surface": "tile",
+        "hasRamp": false,
+        "hasStairs": false,
+        "closed": false,
+        "snow": 0,
+        "ice": 0,
+        "repair": 0,
+        "crowd": 0,
+        "highway": "footway",
+        "footway": null,
+        "incline": null,
+        "wheelchair": null,
+        "bridge": null,
+        "layer": null,
+        "surfaceRaw": "paving_stones"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.6045373,
+            55.7439852
+          ],
+          [
+            37.6045057,
+            55.7439588
+          ],
+          [
+            37.604397,
+            55.744
+          ]
+        ]
+      },
+      "properties": {
+        "graphType": "edge",
+        "id": "e10",
+        "sourceOsmId": "way/720260888",
+        "from": "n9",
+        "to": "n8",
+        "bidirectional": true,
+        "lengthM": 11.7,
+        "slopePercent": 0.0,
+        "widthM": 1.8,
+        "curbHeightCm": 0,
+        "surface": "tile",
+        "hasRamp": false,
+        "hasStairs": false,
+        "closed": false,
+        "snow": 0,
+        "ice": 0,
+        "repair": 0,
+        "crowd": 0,
+        "highway": "footway",
+        "footway": null,
+        "incline": null,
+        "wheelchair": null,
+        "bridge": null,
+        "layer": null,
+        "surfaceRaw": "paving_stones"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.6045373,
+            55.7439852
+          ],
+          [
+            37.60454,
+            55.7439875
+          ],
+          [
+            37.6045428,
+            55.7439898
+          ],
+          [
+            37.6045456,
+            55.7439921
+          ],
+          [
+            37.6045636,
+            55.7440071
+          ],
+          [
+            37.6045982,
+            55.7440361
+          ]
+        ]
+      },
+      "properties": {
+        "graphType": "edge",
+        "id": "e11",
+        "sourceOsmId": "way/373952764",
+        "from": "n9",
+        "to": "n10",
+        "bidirectional": true,
+        "lengthM": 6.8,
+        "slopePercent": 12.0,
+        "widthM": 1.2,
+        "curbHeightCm": 0,
+        "surface": "tile",
+        "hasRamp": false,
+        "hasStairs": true,
+        "closed": false,
+        "snow": 0,
+        "ice": 0,
+        "repair": 0,
+        "crowd": 0,
+        "highway": "steps",
+        "footway": null,
+        "incline": "up",
+        "wheelchair": null,
+        "bridge": null,
+        "layer": null,
+        "surfaceRaw": "granite"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.6045982,
+            55.7440361
+          ],
+          [
+            37.6046291,
+            55.7440619
+          ]
+        ]
+      },
+      "properties": {
+        "graphType": "edge",
+        "id": "e12",
+        "sourceOsmId": "way/720260892",
+        "from": "n10",
+        "to": "n11",
+        "bidirectional": true,
+        "lengthM": 3.5,
+        "slopePercent": 0.0,
+        "widthM": 1.8,
+        "curbHeightCm": 0,
+        "surface": "tile",
+        "hasRamp": false,
+        "hasStairs": false,
+        "closed": false,
+        "snow": 0,
+        "ice": 0,
+        "repair": 0,
+        "crowd": 0,
+        "highway": "footway",
+        "footway": null,
+        "incline": null,
+        "wheelchair": null,
+        "bridge": null,
+        "layer": null,
+        "surfaceRaw": "granite"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.6046291,
+            55.7440619
+          ],
+          [
+            37.6046669,
+            55.7440934
+          ]
+        ]
+      },
+      "properties": {
+        "graphType": "edge",
+        "id": "e13",
+        "sourceOsmId": "way/720260891",
+        "from": "n11",
+        "to": "n12",
+        "bidirectional": true,
+        "lengthM": 4.2,
+        "slopePercent": 12.0,
+        "widthM": 1.2,
+        "curbHeightCm": 0,
+        "surface": "tile",
+        "hasRamp": false,
+        "hasStairs": true,
+        "closed": false,
+        "snow": 0,
+        "ice": 0,
+        "repair": 0,
+        "crowd": 0,
+        "highway": "steps",
+        "footway": null,
+        "incline": "up",
+        "wheelchair": null,
+        "bridge": null,
+        "layer": null,
+        "surfaceRaw": "granite"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.6047485,
+            55.7441616
+          ],
+          [
+            37.6046669,
+            55.7440934
+          ]
+        ]
+      },
+      "properties": {
+        "graphType": "edge",
+        "id": "e14",
+        "sourceOsmId": "way/133269794",
+        "from": "n14",
+        "to": "n12",
+        "bidirectional": true,
+        "lengthM": 9.1,
+        "slopePercent": 0.0,
+        "widthM": 1.8,
+        "curbHeightCm": 0,
+        "surface": "tile",
+        "hasRamp": false,
+        "hasStairs": false,
+        "closed": false,
+        "snow": 0,
+        "ice": 0,
+        "repair": 0,
+        "crowd": 0,
+        "highway": "footway",
+        "footway": null,
+        "incline": null,
+        "wheelchair": null,
+        "bridge": null,
+        "layer": null,
+        "surfaceRaw": "paving_stones"
+      }
+    }
+  ]
+}
