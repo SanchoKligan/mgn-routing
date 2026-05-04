@@ -23,7 +23,7 @@ export default function App() {
       .then((data) => {
         setNodes(data.nodes);
         setEdges(data.edges);
-        setStatus('Граф загружен. Кликни по карте и выбери узел как старт или финиш.');
+        setStatus('Граф загружен. Кликните по карте и выберите узел как старт или финиш.');
       })
       .catch((err) => {
         setStatus(err.message);
@@ -46,7 +46,7 @@ export default function App() {
     setStartNodeId(null);
     setEndNodeId(null);
     setRoute(null);
-    setStatus('Выбор сброшен. Кликни по карте и выбери узел как старт или финиш.');
+    setStatus('Выбор сброшен. Кликните по карте и выберите узел как старт или финиш.');
   };
 
   const handleBuildRoute = async () => {
@@ -85,7 +85,7 @@ export default function App() {
         }}
       >
         <div style={{ marginBottom: 10, fontWeight: 600 }}>
-          MGN Routing Prototype
+          MGN Routing
         </div>
 
         <div style={{ fontSize: 14, marginBottom: 10 }}>
@@ -100,10 +100,10 @@ export default function App() {
             onChange={(e) => setProfile(e.target.value as UserCategory)}
             style={{ width: '100%' }}
           >
-            <option value="wheelchair">Wheelchair</option>
-            <option value="visual_impaired">Visual impaired</option>
-            <option value="elderly">Elderly</option>
-            <option value="parent_with_stroller">Parent with stroller</option>
+            <option value="wheelchair">Колясочник</option>
+            <option value="visual_impaired">Слабовидящий</option>
+            <option value="elderly">Пожилой</option>
+            <option value="parent_with_stroller">Родитель с коляской</option>
           </select>
         </div>
 

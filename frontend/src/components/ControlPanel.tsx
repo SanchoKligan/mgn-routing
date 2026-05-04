@@ -30,10 +30,10 @@ export function ControlPanel({ profile, setProfile, onBuild, status }: Props) {
         onChange={(e) => setProfile(e.target.value as UserCategory)}
         style={{ width: '100%', marginTop: 8, marginBottom: 12 }}
       >
-        <option value="wheelchair">Wheelchair</option>
-        <option value="visual_impaired">Visual impaired</option>
-        <option value="elderly">Elderly</option>
-        <option value="parent_with_stroller">Parent with stroller</option>
+        <option value="wheelchair">Колясочник</option>
+        <option value="visual_impaired">Слабовидящий</option>
+        <option value="elderly">Пожилой</option>
+        <option value="parent_with_stroller">Родитель с коляской</option>
       </select>
 
       <button onClick={onBuild} style={{ width: '100%' }}>

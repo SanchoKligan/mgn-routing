@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "tsx watch src/server.ts",
+    "generate:graph": "node scripts/generate-route-graph.mjs",
     "build": "tsc",
     "start": "node dist/server.js"
   },
