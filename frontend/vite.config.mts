@@ -9,14 +9,26 @@ export default defineConfig({
     react(),
     viteStaticCopy({
       targets: [
-        { src: 'node_modules/cesium/Build/Cesium/Workers/**/*', dest: `${cesiumBaseUrl}/Workers` },
-        { src: 'node_modules/cesium/Build/Cesium/ThirdParty/**/*', dest: `${cesiumBaseUrl}/ThirdParty` },
-        { src: 'node_modules/cesium/Build/Cesium/Assets/**/*', dest: `${cesiumBaseUrl}/Assets` },
-        { src: 'node_modules/cesium/Build/Cesium/Widgets/**/*', dest: `${cesiumBaseUrl}/Widgets` }
-      ]
-    })
+        {
+          src: 'node_modules/cesium/Build/Cesium/Workers/**/*',
+          dest: `${cesiumBaseUrl}/Workers`,
+        },
+        {
+          src: 'node_modules/cesium/Build/Cesium/ThirdParty/**/*',
+          dest: `${cesiumBaseUrl}/ThirdParty`,
+        },
+        {
+          src: 'node_modules/cesium/Build/Cesium/Assets/**/*',
+          dest: `${cesiumBaseUrl}/Assets`,
+        },
+        {
+          src: 'node_modules/cesium/Build/Cesium/Widgets/**/*',
+          dest: `${cesiumBaseUrl}/Widgets`,
+        },
+      ],
+    }),
   ],
   define: {
-    CESIUM_BASE_URL: JSON.stringify(`/${cesiumBaseUrl}`)
-  }
+    CESIUM_BASE_URL: JSON.stringify(`/${cesiumBaseUrl}`),
+  },
 });

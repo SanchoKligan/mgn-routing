@@ -4,6 +4,10 @@
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "generate:graph": "node scripts/generate-route-graph.mjs",
+    "lint": "eslint . --fix",
+    "lint:check": "eslint .",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check",
     "build": "tsc",
     "start": "node dist/server.js"
   },
@@ -12,10 +16,15 @@
     "express": "^4.19.2"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.1",
     "@types/node": "^22.10.2",
+    "eslint": "^10.4.0",
+    "globals": "^17.6.0",
+    "prettier": "^3.8.3",
     "tsx": "^4.19.2",
-    "typescript": "^5.6.3"
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.59.3"
   }
 }

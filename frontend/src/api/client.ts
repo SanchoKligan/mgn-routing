@@ -16,7 +16,7 @@ export async function buildRoute(
   const res = await fetch(`${API}/route`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ startNodeId, endNodeId, profile })
+    body: JSON.stringify({ startNodeId, endNodeId, profile }),
   });
 
   if (!res.ok) {

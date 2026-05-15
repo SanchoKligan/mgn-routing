@@ -119,7 +119,9 @@ export function CesiumMap({
   const [selectedNode, setSelectedNode] = useState<GraphNode | null>(null);
   const [groundLayerReady, setGroundLayerReady] = useState(false);
   const [hoveredNodeId, setHoveredNodeId] = useState<string | null>(null);
-  const [popupPosition, setPopupPosition] = useState<{ x: number; y: number } | null>(null);
+  const [popupPosition, setPopupPosition] = useState<{ x: number; y: number } | null>(
+    null
+  );
 
   useEffect(() => {
     nodesRef.current = nodes;
@@ -309,12 +311,7 @@ export function CesiumMap({
         const lon = CesiumMath.toDegrees(cartographic.longitude);
         const lat = CesiumMath.toDegrees(cartographic.latitude);
 
-        return findNearestNode(
-          lat,
-          lon,
-          nodesRef.current,
-          selectableNodeIdsRef.current
-        );
+        return findNearestNode(lat, lon, nodesRef.current, selectableNodeIdsRef.current);
       };
 
       handler.setInputAction((event: { position: Cartesian2 }) => {
@@ -473,11 +470,21 @@ export function CesiumMap({
           }}
         >
           <div style={{ fontWeight: 600, marginBottom: 8 }}>Узел графа</div>
-          <div><b>ID:</b> {selectedNode.id}</div>
-          <div><b>Тип:</b> {selectedNode.type}</div>
-          <div><b>Широта:</b> {selectedNode.lat.toFixed(6)}</div>
-          <div><b>Долгота:</b> {selectedNode.lon.toFixed(6)}</div>
-          <div><b>Z:</b> {selectedNode.z}</div>
+          <div>
+            <b>ID:</b> {selectedNode.id}
+          </div>
+          <div>
+            <b>Тип:</b> {selectedNode.type}
+          </div>
+          <div>
+            <b>Широта:</b> {selectedNode.lat.toFixed(6)}
+          </div>
+          <div>
+            <b>Долгота:</b> {selectedNode.lon.toFixed(6)}
+          </div>
+          <div>
+            <b>Z:</b> {selectedNode.z}
+          </div>
 
           <div style={{ display: 'flex', gap: 8, marginTop: 10 }}>
             <button

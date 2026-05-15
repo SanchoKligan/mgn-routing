@@ -19,7 +19,7 @@ export function ControlPanel({ profile, setProfile, onBuild, status }: Props) {
         padding: 16,
         borderRadius: 12,
         width: 280,
-        boxShadow: '0 4px 16px rgba(0,0,0,0.15)'
+        boxShadow: '0 4px 16px rgba(0,0,0,0.15)',
       }}
     >
       <h3>MGN Routing</h3>

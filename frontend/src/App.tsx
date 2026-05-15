@@ -1,12 +1,7 @@
 import { useEffect, useState } from 'react';
 import { buildRoute, fetchGraph } from './api/client';
 import { CesiumMap } from './components/CesiumMap';
-import type {
-  GraphEdge,
-  GraphNode,
-  RouteResponse,
-  UserCategory,
-} from './types/api';
+import type { GraphEdge, GraphNode, RouteResponse, UserCategory } from './types/api';
 
 export default function App() {
   const [nodes, setNodes] = useState<GraphNode[]>([]);
@@ -82,13 +77,15 @@ export default function App() {
           fontFamily: 'sans-serif',
         }}
       >
-        <div style={{ marginBottom: 10, fontWeight: 600 }}>
-          MGN Routing
-        </div>
+        <div style={{ marginBottom: 10, fontWeight: 600 }}>MGN Routing</div>
 
         <div style={{ fontSize: 14, marginBottom: 10 }}>
-          <div><b>Старт:</b> {startNodeId ?? 'не выбран'}</div>
-          <div><b>Финиш:</b> {endNodeId ?? 'не выбран'}</div>
+          <div>
+            <b>Старт:</b> {startNodeId ?? 'не выбран'}
+          </div>
+          <div>
+            <b>Финиш:</b> {endNodeId ?? 'не выбран'}
+          </div>
         </div>
 
         <div style={{ marginBottom: 10 }}>
@@ -118,9 +115,7 @@ export default function App() {
           </button>
         </div>
 
-        <div style={{ fontSize: 13, lineHeight: 1.4, color: '#333' }}>
-          {status}
-        </div>
+        <div style={{ fontSize: 13, lineHeight: 1.4, color: '#333' }}>{status}</div>
       </div>
 
       <CesiumMap

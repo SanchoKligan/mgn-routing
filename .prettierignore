@@ -1,0 +1,7 @@
+node_modules/
+dist/
+build/
+coverage/
+
+backend/src/data/*.geojson
+frontend/public/data/*.geojson

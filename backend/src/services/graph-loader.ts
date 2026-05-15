@@ -64,12 +64,7 @@ export function loadGraph(): {
   nodesMap: Map<string, GraphNode>;
   adjacency: Map<string, GraphEdge[]>;
 } {
-  const filePath = path.join(
-    process.cwd(),
-    'src',
-    'data',
-    'route-graph.manual.geojson'
-  );
+  const filePath = path.join(process.cwd(), 'src', 'data', 'route-graph.manual.geojson');
 
   const raw = fs.readFileSync(filePath, 'utf-8');
   const geo = JSON.parse(raw) as GeoJsonFeatureCollection;
@@ -89,7 +84,7 @@ export function loadGraph(): {
         lat,
         lon,
         z: toNumber(z, 0),
-        type: (String(props.nodeType ?? 'intersection') as GraphNode['type']),
+        type: String(props.nodeType ?? 'intersection') as GraphNode['type'],
         attrs: {
           tactileSupport: toBoolean(props.tactileSupport),
           soundSignal: toBoolean(props.soundSignal),

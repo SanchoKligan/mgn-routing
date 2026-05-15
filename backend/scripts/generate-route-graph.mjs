@@ -13,21 +13,7 @@ const sourcePath = path.join(
   'data',
   'moscow-quarter-all.geojson'
 );
-const outputPath = path.join(
-  backendDir,
-  'src',
-  'data',
-  'route-graph.manual.geojson'
-);
-
-const pedestrianHighways = new Set([
-  'footway',
-  'path',
-  'pedestrian',
-  'living_street',
-  'steps',
-  'service',
-]);
+const outputPath = path.join(backendDir, 'src', 'data', 'route-graph.manual.geojson');
 
 const vehicleHighways = new Set([
   'secondary',
@@ -120,10 +106,7 @@ function parseWidthMeters(props) {
 
 function parseCurbHeightCm(props) {
   const explicit =
-    props['kerb:height'] ??
-    props.kerb_height ??
-    props.curbHeightCm ??
-    props.kerb;
+    props['kerb:height'] ?? props.kerb_height ?? props.curbHeightCm ?? props.kerb;
 
   if (explicit !== undefined && explicit !== null) {
     const raw = String(explicit).trim().toLowerCase();
@@ -168,8 +151,7 @@ function distanceMeters(a, b) {
   const dLat = lat2 - lat1;
 
   const h =
-    Math.sin(dLat / 2) ** 2 +
-    Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon / 2) ** 2;
+    Math.sin(dLat / 2) ** 2 + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon / 2) ** 2;
 
   return 2 * earthRadiusM * Math.asin(Math.sqrt(h));
 }
@@ -250,8 +232,7 @@ function nodeAttrsFor(record) {
     elevator: allProps.some((props) => props.elevator === 'yes'),
     trafficLight: allProps.some(
       (props) =>
-        props.crossing === 'traffic_signals' ||
-        props.highway === 'traffic_signals'
+        props.crossing === 'traffic_signals' || props.highway === 'traffic_signals'
     ),
   };
 }
@@ -320,9 +301,7 @@ function buildElevationConstraints(lineFeatures, recordIndexById) {
         toIndex,
         deltaM,
         weight:
-          signedInclinePercent === 0
-            ? FLAT_ELEVATION_WEIGHT
-            : SLOPED_ELEVATION_WEIGHT,
+          signedInclinePercent === 0 ? FLAT_ELEVATION_WEIGHT : SLOPED_ELEVATION_WEIGHT,
       });
     }
   }
@@ -385,9 +364,7 @@ function inferNodeElevations(lineFeatures) {
   const records = [...nodeRecordsByCoord.values()];
   if (records.length === 0) return;
 
-  const recordIndexById = new Map(
-    records.map((record, index) => [record.id, index])
-  );
+  const recordIndexById = new Map(records.map((record, index) => [record.id, index]));
   const constraints = buildElevationConstraints(lineFeatures, recordIndexById);
   if (constraints.length === 0) return;
 
@@ -398,11 +375,7 @@ function inferNodeElevations(lineFeatures) {
   const nextZValues = Array(records.length).fill(0);
   const weightSums = Array(records.length).fill(0);
 
-  for (
-    let iteration = 0;
-    iteration < ELEVATION_RELAXATION_ITERATIONS;
-    iteration += 1
-  ) {
+  for (let iteration = 0; iteration < ELEVATION_RELAXATION_ITERATIONS; iteration += 1) {
     nextZValues.fill(0);
     weightSums.fill(0);
 
