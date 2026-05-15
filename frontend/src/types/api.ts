@@ -23,6 +23,11 @@ export interface GraphEdge {
     slopePercent: number;
     hasRamp: boolean;
     hasStairs: boolean;
+    highway?: string | null;
+    footway?: string | null;
+    dynamic?: {
+      closed?: boolean;
+    };
   };
 }
 

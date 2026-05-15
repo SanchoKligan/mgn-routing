@@ -23,7 +23,7 @@ export default function App() {
       .then((data) => {
         setNodes(data.nodes);
         setEdges(data.edges);
-        setStatus('Граф загружен. Кликните по карте и выберите узел как старт или финиш.');
+        setStatus('Кликните по карте и выберите узел как старт или финиш.');
       })
       .catch((err) => {
         setStatus(err.message);
@@ -59,9 +59,7 @@ export default function App() {
       setStatus('Построение маршрута...');
       const result = await buildRoute(startNodeId, endNodeId, profile);
       setRoute(result);
-      setStatus(
-        `Маршрут найден: ${Math.round(result.distanceM)} м, cost=${result.totalCost.toFixed(1)}`
-      );
+      setStatus(`Маршрут найден: ${Math.round(result.distanceM)} м`);
     } catch (err) {
       setRoute(null);
       setStatus(err instanceof Error ? err.message : 'Ошибка');
@@ -127,6 +125,7 @@ export default function App() {
 
       <CesiumMap
         nodes={nodes}
+        edges={edges}
         route={route}
         startNodeId={startNodeId}
         endNodeId={endNodeId}

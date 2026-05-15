@@ -32,6 +32,8 @@ export interface GraphEdge {
     surface: 'asphalt' | 'tile' | 'rough' | 'ground';
     hasRamp: boolean;
     hasStairs: boolean;
+    highway?: string | null;
+    footway?: string | null;
     dynamic: {
       closed?: boolean;
       snow?: number;

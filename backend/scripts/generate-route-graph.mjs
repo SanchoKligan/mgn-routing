@@ -39,6 +39,12 @@ const vehicleHighways = new Set([
   'construction',
 ]);
 
+const DEFAULT_STAIR_INCLINE_PERCENT = 12;
+const DEFAULT_RAMP_INCLINE_PERCENT = 8;
+const SLOPED_ELEVATION_WEIGHT = 12;
+const FLAT_ELEVATION_WEIGHT = 1;
+const ELEVATION_RELAXATION_ITERATIONS = 1200;
+
 function coordKey(coord) {
   return `${Number(coord[0]).toFixed(7)},${Number(coord[1]).toFixed(7)}`;
 }
@@ -57,16 +63,29 @@ function toNullableString(value) {
   return value === undefined || value === null ? null : String(value);
 }
 
-function parseInclinePercent(value, highway) {
+function parseSignedInclinePercent(value, highway) {
   if (value === undefined || value === null) {
-    return highway === 'steps' ? 12 : 0;
+    return highway === 'steps' ? DEFAULT_STAIR_INCLINE_PERCENT : 0;
   }
 
   const raw = String(value).trim().toLowerCase();
-  if (raw === 'up' || raw === 'down') return highway === 'steps' ? 12 : 8;
+  if (raw === 'up') {
+    return highway === 'steps'
+      ? DEFAULT_STAIR_INCLINE_PERCENT
+      : DEFAULT_RAMP_INCLINE_PERCENT;
+  }
+  if (raw === 'down') {
+    return highway === 'steps'
+      ? -DEFAULT_STAIR_INCLINE_PERCENT
+      : -DEFAULT_RAMP_INCLINE_PERCENT;
+  }
 
-  const parsed = Math.abs(toNumber(raw.replace('%', ''), 0));
+  const parsed = toNumber(raw.replace('%', ''), Number.NaN);
   return Number.isFinite(parsed) ? parsed : 0;
+}
+
+function parseInclinePercent(value, highway) {
+  return Math.abs(parseSignedInclinePercent(value, highway));
 }
 
 function normalizeSurface(props) {
@@ -153,6 +172,10 @@ function distanceMeters(a, b) {
     Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon / 2) ** 2;
 
   return 2 * earthRadiusM * Math.asin(Math.sqrt(h));
+}
+
+function roundElevationMeters(value) {
+  return Math.round(value * 100) / 100;
 }
 
 function isCandidateLine(feature) {
@@ -269,6 +292,154 @@ function ensureNode(coord) {
   return record;
 }
 
+function buildElevationConstraints(lineFeatures, recordIndexById) {
+  const constraints = [];
+
+  for (const feature of lineFeatures) {
+    const props = feature.properties ?? {};
+    const coords = feature.geometry.coordinates;
+
+    for (let i = 0; i < coords.length - 1; i += 1) {
+      const from = ensureNode(coords[i]);
+      const to = ensureNode(coords[i + 1]);
+      if (from.id === to.id) continue;
+
+      const fromIndex = recordIndexById.get(from.id);
+      const toIndex = recordIndexById.get(to.id);
+      if (fromIndex === undefined || toIndex === undefined) continue;
+
+      const signedInclinePercent = parseSignedInclinePercent(
+        props.incline,
+        props.highway
+      );
+      const deltaM =
+        (distanceMeters(coords[i], coords[i + 1]) * signedInclinePercent) / 100;
+
+      constraints.push({
+        fromIndex,
+        toIndex,
+        deltaM,
+        weight:
+          signedInclinePercent === 0
+            ? FLAT_ELEVATION_WEIGHT
+            : SLOPED_ELEVATION_WEIGHT,
+      });
+    }
+  }
+
+  return constraints;
+}
+
+function buildConnectedComponents(nodeCount, constraints) {
+  const adjacency = Array.from({ length: nodeCount }, () => []);
+
+  for (const constraint of constraints) {
+    adjacency[constraint.fromIndex].push(constraint.toIndex);
+    adjacency[constraint.toIndex].push(constraint.fromIndex);
+  }
+
+  const seen = new Set();
+  const components = [];
+
+  for (let i = 0; i < nodeCount; i += 1) {
+    if (seen.has(i)) continue;
+
+    const component = [];
+    const stack = [i];
+    seen.add(i);
+
+    while (stack.length > 0) {
+      const current = stack.pop();
+      component.push(current);
+
+      for (const next of adjacency[current]) {
+        if (seen.has(next)) continue;
+        seen.add(next);
+        stack.push(next);
+      }
+    }
+
+    components.push(component);
+  }
+
+  return components;
+}
+
+function normalizeElevationBaselines(zValues, components) {
+  for (const component of components) {
+    let min = Number.POSITIVE_INFINITY;
+
+    for (const index of component) {
+      min = Math.min(min, zValues[index]);
+    }
+
+    if (!Number.isFinite(min)) continue;
+
+    for (const index of component) {
+      zValues[index] -= min;
+    }
+  }
+}
+
+function inferNodeElevations(lineFeatures) {
+  const records = [...nodeRecordsByCoord.values()];
+  if (records.length === 0) return;
+
+  const recordIndexById = new Map(
+    records.map((record, index) => [record.id, index])
+  );
+  const constraints = buildElevationConstraints(lineFeatures, recordIndexById);
+  if (constraints.length === 0) return;
+
+  // Solve relative node heights from incline constraints. Absolute zero is
+  // arbitrary, so each connected component is normalized to its local minimum.
+  const components = buildConnectedComponents(records.length, constraints);
+  const zValues = Array(records.length).fill(0);
+  const nextZValues = Array(records.length).fill(0);
+  const weightSums = Array(records.length).fill(0);
+
+  for (
+    let iteration = 0;
+    iteration < ELEVATION_RELAXATION_ITERATIONS;
+    iteration += 1
+  ) {
+    nextZValues.fill(0);
+    weightSums.fill(0);
+
+    for (const constraint of constraints) {
+      const { fromIndex, toIndex, deltaM, weight } = constraint;
+
+      nextZValues[fromIndex] += weight * (zValues[toIndex] - deltaM);
+      weightSums[fromIndex] += weight;
+
+      nextZValues[toIndex] += weight * (zValues[fromIndex] + deltaM);
+      weightSums[toIndex] += weight;
+    }
+
+    let maxDiff = 0;
+
+    for (let i = 0; i < zValues.length; i += 1) {
+      if (weightSums[i] === 0) continue;
+
+      const nextZ = nextZValues[i] / weightSums[i];
+      maxDiff = Math.max(maxDiff, Math.abs(nextZ - zValues[i]));
+      zValues[i] = nextZ;
+    }
+
+    if (iteration % 25 === 0) {
+      normalizeElevationBaselines(zValues, components);
+    }
+
+    if (maxDiff < 0.000001) break;
+  }
+
+  normalizeElevationBaselines(zValues, components);
+
+  for (let i = 0; i < records.length; i += 1) {
+    records[i].z = roundElevationMeters(zValues[i]);
+  }
+}
+
 const lineFeatures = source.features.filter(isCandidateLine);
 
 for (const feature of lineFeatures) {
@@ -283,6 +454,8 @@ for (const feature of source.features ?? []) {
   if (feature.geometry?.type !== 'Point') continue;
   ensureNode(feature.geometry.coordinates).points.push(feature.properties ?? {});
 }
+
+inferNodeElevations(lineFeatures);
 
 const nodeFeatures = [...nodeRecordsByCoord.values()]
   .map((record) => ({
@@ -317,6 +490,9 @@ for (const feature of lineFeatures) {
     const id = `e${nextEdgeNumber}`;
     nextEdgeNumber += 1;
 
+    const horizontalLengthM = distanceMeters(coords[i], coords[i + 1]);
+    const lengthM = Math.sqrt(horizontalLengthM ** 2 + (to.z - from.z) ** 2);
+
     edges.push({
       type: 'Feature',
       geometry: {
@@ -334,7 +510,7 @@ for (const feature of lineFeatures) {
         from: from.id,
         to: to.id,
         bidirectional: true,
-        lengthM: Math.round(distanceMeters(coords[i], coords[i + 1]) * 10) / 10,
+        lengthM: Math.round(lengthM * 10) / 10,
         slopePercent: parseInclinePercent(props.incline, props.highway),
         widthM: parseWidthMeters(props),
         curbHeightCm: parseCurbHeightCm(props),

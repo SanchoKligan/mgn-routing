@@ -124,6 +124,14 @@ export function loadGraph(): {
           surface: toSurface(props.surface),
           hasRamp: toBoolean(props.hasRamp),
           hasStairs: toBoolean(props.hasStairs),
+          highway:
+            props.highway === null || props.highway === undefined
+              ? null
+              : String(props.highway),
+          footway:
+            props.footway === null || props.footway === undefined
+              ? null
+              : String(props.footway),
           dynamic: {
             closed: toBoolean(props.closed),
             snow: toNumber(props.snow, 0),

@@ -97,7 +97,7 @@ router.post('/', (req, res) => {
   );
 
   if (!result) {
-    return res.status(404).json({ error: 'Route not found' });
+    return res.status(404).json({ error: 'Маршрут не найден' });
   }
 
   return res.json(result);
